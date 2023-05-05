@@ -1,73 +1,94 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Real Estate Price Prediction</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJTDNEpUTHQoQUJMHLrErGJyHg89uy71MyuHkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <style>
-            .bg-image {
-                background-image: url('https://media.istockphoto.com/id/1207169165/photo/hands-holding-yellow-paper-house-on-blue-background-family-home-homeless-shelter-housing-and.jpg?s=612x612&w=0&k=20&c=qhWxQgl-uZSSjOF4LhiRfBOPR_7SWHCqs4AHjUYtFKU=');
+  <head>
+    <meta charset="UTF-8">
+    <title>Real Estate Price Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <style>
+      body {
+        background-color: #343a40;
+        color: #000;
+        font-family: Arial, sans-serif;
+      }
+      .bg-image {
+                background-image: url("https://media.istockphoto.com/id/899471458/photo/purchase-agreement-for-new-house.jpg?s=612x612&w=0&k=20&c=S97ewd-sqqOYk3kX5Wg-1FWJBndPW9AgI0VBHmDHMeA=");
                 background-size: cover;
                 background-position: center;
                 height: 100vh;
             }
-            .card {
-                background-color: rgba(255, 255, 255, 0.8);
-                padding: 30px;
-                border-radius: 15px;
-            }
-        </style>
-    </head>
-    
-    <body>
-        <div class="bg-image">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class='card' style="max-width: 800px; margin-top:50px">
-                        <div class="card-header" style="text-align: center;">
-                            <h1> REAL ESTATE PRICE PREDICTION</h1>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ url_for('predict') }}" method="POST">
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label>LOCATION</label>
-                                        <select class="form-control" name="sLocation" id="uiLocation" required=1>
-                                            {% for location in locations %}
-                                            <option value="{{location}}">{{location}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>BATHROOMS</label>
-                                        <input type="number" class='form-control'id="uiBHK" name="uiBHK" placeholder="Enter Bathrooms">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>AREA</label>
-                                        <input type="number" class='form-control'id="uiSqft" name="Squareft" placeholder="Enter Area (sqft)" min="1000" max="50000">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label>BHK</label>
-                                        <input type="number" class='form-control'id="uiBathrooms" name="uiBathrooms" placeholder="Enter BHK">
-                                    </div>
 
-                                    <div class="col-md-12 form-group">
-                                        <button class="btn btn-primary form-control">ESTIMATE PRICE</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <br>
+      .card {
+        
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+        margin: 50px auto;
+        max-width: 800px;
+        padding: 20px;
+        text-align: center;
+      }
+      .card h1 {
+        font-size: 3rem;
+        margin-bottom: 30px;
+      }
+      .card h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      .card h3 {
+        font-size: 1.5rem;
+        margin-top: 10px;
+      }
+      .glyphicon-home {
+        font-size: 2rem;
+        margin-right: 10px;
+      }
 
-                            <div class="col-md-12" style="text-align: center;">
-                                <h3><span>{{result}}</span></h3>
-                            </div>
-                            <div class="col-md-12" style="text-align: center;">
-                                <h3><span>{{result}}</span></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </style>
+  </head>
+  <body>
+    <div class="bg-image">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="card">
+            <div class="card-header text-center">
+              <h1>Real Estate Price Prediction</h1>
             </div>
+            <div class="card-body">
+              <form action="{{ url_for('predict') }}" method="POST">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="uiLocation">Location</label>
+                    <select class="form-control" name="sLocation" id="uiLocation" required>
+                      {% for location in locations %}
+                        <option value="{{location}}">{{location}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="uiBHK">Bathrooms</label>
+                    <input type="number" class="form-control" id="uiBHK" name="uiBHK" placeholder="Enter Bathrooms">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="uiSqft">Area</label>
+                    <input type="number" class="form-control" id="uiSqft" name="Squareft" placeholder="Enter Area (sqft)" min="1000" max="50000">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="uiBathrooms">BHK</label>
+                    <input type="number" class="form-control" id="uiBathrooms" name="uiBathrooms" placeholder="Enter BHK">
+                  </div>
+                  <div class="form-group col-md-12">
+                    <button class="btn btn-primary form-control">Estimate Price</button>
+                  </div>
+                </div>
+              </form>
+              <div class="result text-center">
+                <h3>{{result}}</h3>
+              </div>
+            </div>
+          </div>
         </div>
-    </body>
+      </div>
+    </div>
+  </body>
 </html>
